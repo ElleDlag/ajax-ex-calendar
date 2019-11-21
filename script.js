@@ -1,10 +1,17 @@
-//se bool è false conterà i giorni del mese
-//se bool è true conterà i gironi dell'anno
-var stdFormat
+/**
+ * function daysSetByMY(anno, bool, mese)
+ * anno --> impostare l'anno
+ * bool true --> conta i giorni dell'anno
+ * bool false --> conta i giorni dell'mese
+ * mese --> se bool false considera il mese indicato (a partire da 1)
+ * mese --> se bool true si torna a 1 automaticamente
+ */
+
 function daysSetByMY(setYear,bool,setMonth){
     //var xmlhttp = new XMLHttpRequest();
     var daysCounter =  0;
     var daysN;
+    var stdFormat
     var xmlhttp = new XMLHttpRequest();
 
     if(bool  == true ){

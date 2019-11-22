@@ -7,7 +7,6 @@ function callAjax(){
                 date.push(text[key])
             }
         }
-        callback(date)
     }//callback
   
 
@@ -19,6 +18,7 @@ function callAjax(){
             xmlhttp.onreadystatechange = function() {
                 if (this.readyState === 4 && this.status === 200) {
                     var obj = JSON.parse(this.responseText);
+                    var resp = obj.responseText;
                     callback(obj)
                 };     
             }//end here}

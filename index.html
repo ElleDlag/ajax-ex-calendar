@@ -4,11 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/umbrellajs"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/it.js"></script>
+    <script src="holiday.js"></script>
+    <script src="calendar.js"></script>
     <script src="script.js"></script>
-    <title>Test Moment JS</title>
+    <link rel="stylesheet" href="main.css">
+    <title>Test Moment JS - new Version</title>
 </head>
+
 <body>
+    <nav class="navigation flex-this center">
+        <button class="nav-btn btn_years">Anno</button>
+        <button class="nav-btn btn_month">Mese</button>
+        <button class="nav-btn btn_week">Settimana</button>
+        <button class="nav-btn btn_day">Giorno</button> 
+    </nav>
+    <section class="box-calendar">
+
+    </section>
+    
+
+
+    <script id="template-Anno" type="text/x-handlebars-template">
+        <div class="set-year" data-year="">{{setYear}}</div>
+        <div class="entry">{{type}}</div>
+        <button class="minus"><</button>
+        <button class="today">Oggi</button>
+        <button class="plus">></button>
+    </script>
+    <script id="template-Mese" type="text/x-handlebars-template">
+        <div class="entry">{{result}}</div>
+    </script>
+    <script id="template-Settimana" type="text/x-handlebars-template">
+        <div class="entry">{{result}}</div>
+    </script>
+    <script id="template-Giorno" type="text/x-handlebars-template">
+        <div class="entry">{{result}}</div>
+    </script>
 </body>
+
 </html>
+
+
+

@@ -1,52 +1,78 @@
-/**
- * function daysSetByMY(anno, bool, mese)
- * anno --> impostare l'anno
- * bool true --> conta i giorni dell'anno
- * bool false --> conta i giorni dell'mese
- * mese --> se bool false considera il mese indicato (a partire da 1)
- * mese --> se bool true si torna a 1 automaticamente
- */
+window.onload = function(){
+    //callAjax()
+    var holidays = callAjax()
+    console.log('this is' + holidays)
+    
+    var navBtn = u('.nav-btn')
+    var pFix = "#template-"
+    var source, dataHB, setYear;
+    var setYear = moment().format('YYYY')
+    
 
-function daysSetByMY(setYear,bool,setMonth){
-    //var xmlhttp = new XMLHttpRequest();
-    var daysCounter =  0;
-    var daysN;
-    var stdFormat
-    var xmlhttp = new XMLHttpRequest();
+    u(document).on('click', '.nav-btn', function(i,el){
+        var myBtn = u(this)
+        u(navBtn).attr("style", "backgroun:white; color:black")
+        u(navBtn).removeClass("active")
+        myBtn.attr("style", "background:grey; color:white")
+        myBtn.addClass("active")
 
-    if(bool  == true ){
-        for (i = 1 ; i <= 12; i++){
-        daysN = parseInt(moment( setYear + '-' + i, 'YYYY-MM').daysInMonth()) // 31
-        daysCounter = daysCounter + daysN
-        }
-        setMonth = 1
-    } else {
-        daysN = parseInt(moment( setYear + '-' + setMonth, 'YYYY-MM').daysInMonth())
-        daysCounter = daysN
-        setMonth = setMonth
-    }
-            
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 200) {
-            for (i = 1 ; i <= daysCounter; i++){
-                myDate = moment().year(setYear).month(setMonth-1).date(i).format('dddd DD MMMM YYYY')
-                stdFormat = moment().year(setYear).month(setMonth-1).date(i).format('YYYY-MM-DD')
+        var verClass = u(this).addClass("active")
+        var type = u(this).text();
+
+
+        switch (type) {
+            case "Anno":
+                source = verClass ? u(pFix + type).html() : u(pFix + 'item').html()
+                theYear(setYear)
+                dataHB = {setYear, type}
+                u(document).on('click','.minus',function(e){
+                    setYear = setYear - 1;
+                    if( setYear >= 1900){ u('.set-year').text(setYear) }
+                })
+                u(document).on('click','.today',function(e){
+                    setYear = parseInt(moment().format('YYYY'));
+                    u('.set-year').text(setYear) 
+                })
+                u(document).on('click','.plus',function(e){
+                    setYear = setYear + 1;
+                    if( setYear <= 2100){ u('.set-year').text(setYear) }
+                })
                 
-                    var obj = JSON.parse(this.responseText);
-                    var objArrs = obj.response;
-                    objArrs.forEach(function(arr){
-                        if(arr.date == stdFormat){
-                            document.querySelector('body').innerHTML += "<span style='color:red'>" + myDate  + "</span><br>"
-                        }
-                        });
-                document.querySelector('body').innerHTML += myDate + '<br>'
-                };
-            };
-    }//end onreadystatechange
-    xmlhttp.open('GET', 'https://flynn.boolean.careers/exercises/api/holidays?year=2018&month=11');
-    xmlhttp.send(); //fine chiamata ajax
-}//end daysSetByMY
+                
+                break;
+            case "Mese":
+                source = verClass ? u(pFix + type).html() : u(pFix + 'item').html()
+                break;
+            case "Settimana":
+                source = verClass ? u(pFix + type).html() : u(pFix + 'item').html()
+                break;
+            case "Giorno":
+                source = verClass ? u(pFix + type).html() : u(pFix + 'item').html()
+                break;
+        
+            default:
+                break;
+        }
 
-window.onload = function (){
-    daysSetByMY(2018,true,4)  
-}//end here
+        var template = Handlebars.compile(source);
+        u('.box-calendar').html("")
+        u('.box-calendar').append(template(dataHB))
+    })
+    
+    
+
+
+    /* var data = {result: theWeeks}
+    
+    u('body').append(template(data)) */
+    var i = 0;
+    /* while (i < theWeeks){
+        var thisDay = theDays(i)
+        var printDay = {result: thisDay}
+        u('body').append(template(printDay))
+        i++;
+    } */
+    var printDay = {result: theDays}
+    
+    
+}

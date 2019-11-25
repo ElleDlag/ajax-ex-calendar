@@ -8,40 +8,72 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/umbrellajs"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/it.js"></script>
-    <script src="holiday.js"></script>
+    <script src="callAjax.js"></script>
     <script src="calendar.js"></script>
+    <!-- <script src="innerBtn.js"></script> -->
     <script src="script.js"></script>
+    <link rel="stylesheet" href="animation.css">
     <link rel="stylesheet" href="main.css">
     <title>Test Moment JS - new Version</title>
 </head>
 
 <body>
-    <nav class="navigation flex-this center">
-        <button class="nav-btn btn_years">Anno</button>
-        <button class="nav-btn btn_month">Mese</button>
-        <button class="nav-btn btn_week">Settimana</button>
-        <button class="nav-btn btn_day">Giorno</button> 
-    </nav>
-    <section class="box-calendar">
+    <main>
+        <div class="wrapper">
+            <nav class="navigation flex-this center">
+                    <button class="nav-btn btn_years active">anno</button>
+                    <button class="nav-btn btn_month">mese</button>
+                    <button class="nav-btn btn_week">settimana</button>
+                    <button class="nav-btn btn_day">giorno</button> 
+            </nav>
+            <div class=box-calendar></div>
+            <div class=tempDate></div>
 
-    </section>
-    
+        </div>
+        
+            
+        
+        
+          
+    </main>
 
-
-    <script id="template-Anno" type="text/x-handlebars-template">
-        <div class="set-year" data-year="">{{setYear}}</div>
-        <div class="entry">{{type}}</div>
-        <button class="minus"><</button>
-        <button class="today">Oggi</button>
-        <button class="plus">></button>
+    <script id="template-anno" type="text/x-handlebars-template">
+        <div class="nav-element">
+            <div class="set-year" data-year="">{{printYear}}</div>
+            <div class="nav-btn-inner">
+                <button class="minus"><</button>
+                <button class="today">Oggi</button>
+                <button class="plus">></button>
+            </div>
+        </div>
+        <div class="entry">{{t}}</div>
+        <div class="month">  
+            {{#each printMonth}}
+            <div class="printMonth" data-month={{this}}>{{this}}
+                {{#each ../printDay}}
+                <div class="print-day">{{printDay}}</div>
+                {{/each}}
+            </div>
+             {{/each}}
+             
+        </div>
     </script>
-    <script id="template-Mese" type="text/x-handlebars-template">
+
+
+    <script id="template-giornomese" type="text/x-handlebars-template">
+        
+        <div class="print-day">{{../printDay}}</div>
+    </script>
+
+
+
+    <script id="template-mese" type="text/x-handlebars-template">
+        <div class="entry">{{m}}</div>
+    </script>
+    <script id="template-settimana" type="text/x-handlebars-template">
         <div class="entry">{{result}}</div>
     </script>
-    <script id="template-Settimana" type="text/x-handlebars-template">
-        <div class="entry">{{result}}</div>
-    </script>
-    <script id="template-Giorno" type="text/x-handlebars-template">
+    <script id="template-giorno" type="text/x-handlebars-template">
         <div class="entry">{{result}}</div>
     </script>
 </body>

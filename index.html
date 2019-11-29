@@ -28,13 +28,7 @@
             </nav>
             <div class=box-calendar></div>
             <div class=tempDate></div>
-
         </div>
-        
-            
-        
-        
-          
     </main>
 
     <script id="template-anno" type="text/x-handlebars-template">
@@ -46,23 +40,33 @@
                 <button class="plus">></button>
             </div>
         </div>
-        <div class="entry">{{t}}</div>
-        <div class="month">  
-            {{#each printMonth}}
-            <div class="printMonth" data-month={{this}}>{{this}}
-                {{#each ../printDay}}
-                <div class="print-day">{{printDay}}</div>
-                {{/each}}
+
+
+            <div class="wrapper-months"> 
+                {{#each printLast}}
+                <div class="month">
+                    <div class="printMonth" data-month={{printMonth}}>
+                        <h2>{{printMonth}}</h2>
+                        <div class="printChDay">
+                            <div class="Lunedi">L</div>
+                            <div class="Martedì">M</div>
+                            <div class="Mercoledì">M</div>
+                            <div class="Gioved'">G</div>
+                            <div class="Venerd'">V</div>
+                            <div class="Sabato">S</div>
+                            <div class="Domenica">D</div>
+                        </div>
+                        <div class="wrapper-day">
+                        {{#printDayNum}}
+                        
+                        <div class="print-day {{lookup ../printDay @index}}">{{this}}</div>
+                        {{/printDayNum}}
+                        </div>
+                        
+                    </div>
+                </div> 
+                {{/each}} 
             </div>
-             {{/each}}
-             
-        </div>
-    </script>
-
-
-    <script id="template-giornomese" type="text/x-handlebars-template">
-        
-        <div class="print-day">{{../printDay}}</div>
     </script>
 
 

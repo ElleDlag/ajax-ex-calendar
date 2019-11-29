@@ -1,6 +1,7 @@
 *{
     margin:0;
-    padding:0
+    padding:0;
+    box-sizing:border-box
 }
 body{
     box-sizing:border-box;
@@ -21,18 +22,23 @@ main{
     min-width: calc(800px - 4%);
 }
 .wrapper{
-    border:1px solid red;
+    /* border:1px solid red; */
     display: flex;
     flex-flow: column;
     box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.132);
-
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    max-width: 1200px;
+    margin: auto;
 }
 
 
+
 nav{
-    padding:5px;
+    padding:4px;
     background: rgb(230, 230, 230);
     border-bottom:1px solid lightgrey;
+    border-top-right-radius: 8px;
 }
 .nav-btn{
     text-transform: capitalize;
@@ -45,20 +51,61 @@ nav{
 .nav-element{
     display: flex;
     justify-content: space-between;
-    border:1px solid red;
 }
 .set-year{
-    font-size: 20px;
-    border:1px solid blue;
+    font-size: 32px;
+    font-weight: 300;
+    padding:5px 5px 5px 13px ;
 }
-.printMonth{
-    text-transform: capitalize;
-    font-size: 15px;
-    border:1px solid paleturquoise;
+.wrapper-months{
+    /* border:1px solid blue; */
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 2%
 }
-.print-day{
-    color:green
+.month{
+    flex-basis: 25%;
+    padding:15px 20px;
 }
+
+.printMonth h2{
+    font-weight:300;
+    font-size: 18px;
+    padding:0 13px 10px ;
+    color:rgb(255, 74, 74);
+
+}
+.printChDay{
+    display: flex;
+    flex-wrap: nowrap;
+    font-size: 10px;
+    color: grey;
+    padding:5px 0 15px;
+}
+.printChDay>*{
+    flex-basis:calc(100% / 7);
+    text-align: center;
+}
+.wrapper-day{
+   /*  border:1px solid black; */
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.wrapper-day .print-day{
+    color:black;
+    flex-basis:calc(100% / 7);
+    text-align: center;
+    font-size:10px;
+    font-weight: 500;
+    padding:5px 0
+
+}
+.wrapper-day .print-day:hover{
+    background: #eee;
+}
+
+/* temporary div */
 .tempDate{
     display: none;
 }

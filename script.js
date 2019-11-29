@@ -1,14 +1,8 @@
 callAjax()
 var listHolidays;
 
-
-
 window.onload = function () {
 
-    //Handlebars.registerPartial("printDayMonth", u('#template-giornomese').html());
-    
-    
-    
     var a = moment().format('YYYY'); //anno;
 
     function buildHoliday() {
@@ -47,11 +41,6 @@ window.onload = function () {
     //memorizzo l'array in listHolidays
     listHolidays = buildHoliday();
 
-
-
-
-
-
     /* #region   */
     /**
     output expected  holidays[
@@ -87,16 +76,15 @@ window.onload = function () {
      }); */
     /* #endregion */
 
-
     //inserisce l'elemento in base alle codizioni
     function appendHB() {
         var template = Handlebars.compile(source);
         u('.box-calendar').removeClass('on')
         u('.box-calendar').html("")
-        setTimeout(function (e) {
+        //setTimeout(function (e) {
             u('.box-calendar').html("")
             u('.box-calendar').append(template(dataHB)).addClass('on')
-        }, 250)
+        //}, 250)
     }
 
 
@@ -108,6 +96,7 @@ window.onload = function () {
 
 
 
+    /* #region  ALTRO */
     /* var startMonth = moment('2019-09-01').startOf('month')
     console.log('il primo giorno del mese è ' + startMonth.format('dddd') +" " + startMonth.format('D') +" "+ startMonth.format('MMMM') )
     console.log(startMonth.format('dddd') != 'lunedì')
@@ -127,6 +116,7 @@ window.onload = function () {
 
     /* console.log('mese ' + moment().startOf('month').format('MM'))
     console.log(moment().startOf('month').format('MMMM')) */
+    /* #endregion */
 
     //console.log('this is' + holidays)
 
@@ -171,34 +161,34 @@ window.onload = function () {
         switch (t) {
             case "anno":
                 source = verClass ? u(pFix + t).html() : u(pFix + 'item').html()
-                dataHB = {
-                    printYear,
-                    t
-                }
+                dataHB = {printYear,t}
                 appendHB();
 
 
                 u(document).on('click', '.minus', function () {
                     a = parseInt(a) - 1;
-                    print = calendar.print(t, a, m, g, sM)
+                    print = calendar.print(t, a, m, g)
                     printYear = print.y;
-                    printMonth = print.m;
-                    sM = print.dM;
-                    console.log(sM)
-
-                    sM.forEach(function(el){
-                        var i = 0
-                        printDay = [];
-                        while(i<42) {
-                            printDay.push(moment(el, "DD MM YYYY").add(i,"day").format('DD MMMM YYYY'))
-                        i++;
-                        }
-                    });
-                    dataHB = {printYear,t,printMonth,printDay};
-
+                    //console.log(printYear)
+                    printLast = print.m;
+                    for (key in printLast){
+                        console.log(printLast[key].printDay)
+                    }
+                    //console.log(printLast.printMonth)
+                    dataHB = {
+                        printYear,
+                        t,
+                        printLast
+                    };
+                    console.log(dataHB.printLast)
 
                     appendHB();
                 })
+
+
+
+
+
                 u(document).on('click', '.today', function () {
                     a = moment().format('YYYY')
                     printYear = calendar.print(t, a, m, g).y;
@@ -221,9 +211,8 @@ window.onload = function () {
                     };
                     appendHB();
                 })
-
-
                 break;
+
             case "mese":
                 source = verClass ? u(pFix + t).html() : u(pFix + 'item').html()
                 m = 'Febbraio'
@@ -290,3 +279,17 @@ window.onload = function () {
 
 
 } //end here
+
+
+
+/* sM = print.dM;
+console.log(sM)
+
+sM.forEach(function (el) {
+    var i = 0
+    printDay = [];
+    while (i < 42) {
+        printDay.push(moment(el, "DD MM YYYY").add(i, "day").format('DD MMMM YYYY'))
+        i++;
+    }
+}); */

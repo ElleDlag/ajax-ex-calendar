@@ -10,18 +10,36 @@ var calendar = {
         return d
     },
 
-    setMonth:function(y,m,d){
-        d = this.setFirstDay(y)
-        m  =[];
-        var data = d.add(i, 'month').format('MMMM');
-        m.push(data)
-        var i = 0 ;
-        while(i<11){
-        data = d.add(1, 'month').format('MMMM');
-        m.push(data)
-        i++;
+    setMonth:function(y,d){
+        d = this.setFirstDay(y).clone();
+        var setMonth;
+        var startWeekMonth;
+        var i = 0;
+        var k =0;
+        var month;
+        var day = []
+        var dayNum = []
+        var mD  =[];
+        while(i<12){
+        setMonth = moment(d).add(i,'month');
+        month=moment(d).add(i,'month').format('MMMM')
+        startWeekMonth = setMonth.startOf('week').format('DD-MM-YYYY');
+        k=0;
+        day = [];
+        dayNum = [];
+            for(k; k<42;k++){
+                var temp = moment(startWeekMonth,'DD-MM-YYYY').add(k,'day')
+                day.push(temp.format('DD-MM-YYYY'))
+                dayNum.push(temp.format('DD'))
+                
+            }
+        i++
+        
+        mD.push({printMonth:month,printDayNum:dayNum,printDay:day})
         }
-        return m
+        console.log(mD)
+
+        return mD
     },
     
     setHoliday:function(y){
@@ -68,18 +86,16 @@ var calendar = {
 
     /** PRINT IN OUT EXECUT FUNCTION INDICATE */
 
-    print:function(type,y,m,d,dM){//output in uscita
+    print:function(type,y,m,d){//output in uscita
         if(type == "anno"){
             //this.setDay(y,m,d,status)
             m = this.setMonth(y,m,d)
-            dM = this.setDayInMonth(y,m,d,dM)
-            
+
             //var startYear = moment('"'+ y +'"').endOf("year").dayOfYear();
             return {
                 y:y,
                 m:m,
                 d:d,
-                dM:dM,
             }
         }
 
